@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OS Fault Detective - GUI Prototype</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <main class="app">
+    <section id="screen-menu" class="screen active menu-centered menu-hero">
+      <div class="hero-title-wrap">
+        <h1 class="hero-title">
+          <span class="hero-top">OS FAULT</span>
+          <span class="hero-bottom">DETECTIVE</span>
+        </h1>
+        <p class="sub">Operational Incident Simulator</p>
+      </div>
+      <div class="panel menu-panel retro-menu">
+        <button id="btn-play">> START CAMPAIGN</button>
+        <button id="btn-tutorial">HOW TO PLAY</button>
+        <button id="btn-chapters">CHAPTER SELECT</button>
+        <button id="btn-menu-stats">RUN STATS</button>
+        <button id="btn-shell">INTEGRATED TERMINAL</button>
+      </div>
+    </section>
+
+    <section id="screen-briefing" class="screen">
+      <h2 id="briefing-title">Mission Briefing</h2>
+      <p class="sub" id="briefing-page">Page 1/3</p>
+      <div class="panel text" id="briefing-text"></div>
+      <button id="btn-briefing-next">Next Page</button>
+      <button id="btn-briefing-skip">Skip to Case</button>
+    </section>
+
+    <section id="screen-chapters" class="screen">
+      <h2>Chapter Select</h2>
+      <p class="sub">Select a case to run focused OS incident diagnostics</p>
+      <div class="cards">
+        <button class="chapter playable" data-chapter="1">Case 1: Deadlock</button>
+        <button class="chapter playable" data-chapter="2">Case 2: Starvation</button>
+        <button class="chapter playable" data-chapter="3">Case 3: Memory</button>
+        <button class="chapter playable" data-chapter="4">Case 4: Cascading Failure</button>
+        <button class="chapter playable" data-chapter="5">Case 5: Syscalls</button>
+        <button class="chapter playable" data-chapter="6">Case 6: Sync</button>
+        <button class="chapter playable" data-chapter="7">Case 7: Lifecycle</button>
+        <button class="chapter playable" data-chapter="8">Case 8: IPC Pipeline</button>
+      </div>
+      <button id="btn-back-menu-1">Back</button>
+    </section>
+
+    <section id="screen-case1" class="screen">
+      <h2 id="case-title">Case 1: The Frozen City</h2>
+      <p class="sub" id="case1-step-label">Step 1/3 - Investigate</p>
+      <div class="panel text" id="case1-hud"></div>
+      <div id="case1-content" class="panel"></div>
+      <div id="case1-actions" class="panel text"></div>
+      <div class="panel terminal">
+        <div class="term-label">Mission Console</div>
+        <div id="case1-terminal-log" class="term-log"></div>
+        <div class="term-input-row">
+          <span>terminal@novacorp:~$</span>
+          <input id="case1-terminal-input" type="text" placeholder="type command e.g. inspect, diagnose deadlock, fix terminate p3" />
+          <button id="case1-terminal-send">Send</button>
+        </div>
+      </div>
+      <button id="btn-back-menu-2">Back to Menu</button>
+    </section>
+
+    <section id="screen-about" class="screen">
+      <h2>Tutorial / Walkthrough</h2>
+      <div class="panel text">
+        <p><b>Workflow:</b> Briefing -> Evidence Collection -> Diagnosis -> Mitigation -> Outcome.</p>
+        <p><b>Simulator commands:</b> <code>help</code>, <code>status</code>, <code>tools</code>, <code>objectives</code>, <code>hint</code>, <code>clear</code>.</p>
+        <p><b>Evidence commands:</b> case-specific probes such as <code>inspect</code>, <code>logs</code>, <code>trace</code>, <code>strace</code>, <code>tree</code>, <code>map</code>, <code>probe</code>.</p>
+        <p><b>Diagnosis/Fix format:</b> <code>diagnose &lt;root-cause&gt;</code> and <code>fix &lt;mitigation&gt;</code>.</p>
+        <p><b>Timer and stability:</b> incorrect interventions reduce stability; timeout triggers failure.</p>
+        <p><b>Stats:</b> each run is logged for comparative learning and strategy review.</p>
+        <hr />
+        <p><b>Real terminal context (outside simulator):</b></p>
+        <p><code>pwd</code> -> show current directory.</p>
+        <p><code>cd /srv/main-server</code> -> move to service folder.</p>
+        <p><code>ls</code> -> list files/log bundles/tools.</p>
+        <p><code>cat incident.log</code> -> inspect raw log snippets quickly.</p>
+      </div>
+      <button id="btn-back-menu-3">Back</button>
+    </section>
+
+    <section id="screen-shell" class="screen">
+      <h2>Integrated Terminal</h2>
+      <p class="sub">Runs commands on your machine with a persistent working directory</p>
+      <div class="panel terminal">
+        <div class="term-label" id="shell-cwd-label">cwd: ...</div>
+        <div id="shell-log" class="term-log"></div>
+        <div class="term-input-row">
+          <span id="shell-prompt-label">ubuntu@osfd</span><span>:~$ </span>
+          <input id="shell-input" type="text" placeholder="Examples: pwd, ls, cd osfault, cat README.md, make -C osfault" />
+          <button id="shell-send">Run</button>
+        </div>
+      </div>
+      <button id="btn-shell-help">Show Useful Commands</button>
+      <button id="btn-back-menu-6">Back</button>
+    </section>
+
+    <section id="screen-stats" class="screen">
+      <h2>Run Stats</h2>
+      <div class="panel text" id="stats-output"></div>
+      <button id="btn-restart-case">Replay Case 1</button>
+      <button id="btn-back-menu-4">Back to Menu</button>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
